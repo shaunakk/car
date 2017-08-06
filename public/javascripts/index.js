@@ -1,6 +1,7 @@
 var INACTIVE = 0;
 var ACTIVE = 1;
 var SECONDS_INACTIVE = 0.5;
+consoel.log("hi")
 
 function loadSprite(src, callback) {
   var sprite = new Image();

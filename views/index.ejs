@@ -7,6 +7,21 @@
   <script type="text/javascript" src="/javascripts/index.js"></script>
   <script src="/nipplejs/dist/nipplejs.min.js"></script>
   <script>
+    var options = {
+      zone: Element, // active zone
+      color: String,
+      size: Integer,
+      threshold: Float, // before triggering a directional event
+      fadeTime: Integer, // transition time
+      multitouch: Boolean,
+      maxNumberOfNipples: Number, // when multitouch, what is too many?
+      dataOnly: Boolean, // no dom element whatsoever
+      position: Object, // preset position for 'static' mode
+      mode: String, // 'dynamic', 'static' or 'semi'
+      restOpacity: Number, // opacity when not 'dynamic' and rested
+      catchDistance: Number // distance to recycle previous joystick in
+      // 'semi' mode
+    };
     var manager = nipplejs.create(options);
   </script>
   </script>

@@ -44,7 +44,7 @@ void loop(){
   }
 
   if (Serial1.available()) {     // If anything comes in Serial1 (pins 0 & 1)
-    Serial.println(Serial1.read());   // read it and send it out Serial (USB)
+    Serial.write(Serial1.read());   // read it and send it out Serial (USB)
   }
  
 

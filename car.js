@@ -14,7 +14,7 @@ io.on('connection', function(socket) {
   console.log('A user connected');
 
   socket.on('joystickData', function(data) {
-    console.log(JSON.stringify(data));
+    console.log(MATH.tan(data[1] / dat[0]) * 180 / MATH.PI);
   });
   socket.on('disconnect', function() {
     console.log('A user disconnected');

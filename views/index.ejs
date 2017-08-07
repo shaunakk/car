@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<title> Stationary Base Demo </title>
+<html>
+
+<head>
+  <title> Stationary Base Demo </title>
 </head>
 
 <body>
@@ -7,6 +10,7 @@
   <script>
     var joystick = new VirtualJoystick({
       mouseSupport: true,
+      stationaryBase: true,
 
     });
     if (joystick.right()) {}
@@ -15,3 +19,5 @@
     if (joystick.down()) {}
   </script>
 </body>
+
+</html>

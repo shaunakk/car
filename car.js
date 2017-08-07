@@ -4,7 +4,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var SerialPort = require('serialport');
 var port = new SerialPort('/dev/ttyAMA0', {
-  baudRate: 9600
+  baudRate: 115200
 });
 port.on('open', () => {
   console.log('port opened');
@@ -20,7 +20,7 @@ io.on('connection', function(socket) {
   console.log('A user connected');
 
   socket.on('joystickData', function(data) {
-    arduData = parseInt(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32).toString()
+    arduData = parseFloat(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32).toString()
     console.log(arduData);
     ardusend(arduData)
 
@@ -50,7 +50,6 @@ setInterval(function() {
 
 function ardusend(data) {
   arddata = data
-  console.log("hi")
   port.write(data.toString(), function(err) {
     if (err) {
       return console.log('Error on write: ', err.message);

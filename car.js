@@ -17,7 +17,7 @@ io.on('connection', function(socket) {
 
   socket.on('joystickData', function(data) {
     arduData = parseInt(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32).toString()
-    console.log(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32);
+    console.log(arduData);
     ardusend(arduData)
 
   });

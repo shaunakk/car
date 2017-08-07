@@ -4,15 +4,7 @@
 #include <Servo.h>
 
 int STBY = 6; //standby
-int leftPin1=10;
-int rightPin1=11;
-int leftPin2=2;
-int rightPin2=12;
-int left1=0;
-int right1=0;
-int left2=0;
-int right2=0;
-int dutycycle=0;
+
 //Motor A
 int PWMA = 9; //Speed control 
 int AIN1 = 7; //Direction
@@ -29,11 +21,8 @@ void move(int motor, int speed, int direction);
 void stop();
 void setup(){
   pinMode(13,INPUT);
-  Serial.begin(9600); // initialize Serial communication
-  pinMode(leftPin1, INPUT);
-  pinMode(rightPin1, INPUT);
-  pinMode(leftPin2, INPUT);
-  pinMode(rightPin2, INPUT);
+  Serial.begin(9600);
+  Serial1.begin(9600);
   pinMode(STBY, OUTPUT);
   pinMode(PWMA, OUTPUT);
   pinMode(AIN1, OUTPUT);
@@ -50,39 +39,12 @@ void setup(){
 }
 
 void loop(){
-  Serial.println(digitalRead(A0));
-  Serial.println(digitalRead(A1));
-  Serial.println(digitalRead(A2));
-  Serial.println(digitalRead(A3));
-  Serial.println(digitalRead(A4));
-  Serial.println(digitalRead(A5));
-  dutycycle=(32*digitalRead(A0)+16*digitalRead(A1)+8*digitalRead(A2)+4*digitalRead(A3)+2*digitalRead(A4)+digitalRead(A5))*4;
-  Serial.println(dutycycle);
-  left1 = digitalRead(leftPin1);
-  right1 = digitalRead(rightPin1);
-  left2 = digitalRead(leftPin2);
-  right2 = digitalRead(rightPin2);
-  delay(1000);
-  if(left1==1){
-    move(1, dutycycle, 1);
+   if (Serial.available()) {      // If anything comes in Serial (USB),
+    Serial1.write(Serial.read());   // read it and send it out Serial1 (pins 0 & 1)
   }
 
-  if(right1==1){
-    move(2, dutycycle, 1);
-  }
-  
-  if(left2==1){
-    move(1, dutycycle,0);
-  }
- 
-  if(right2==1){
-    move(2, dutycycle, 0);
-  }
-  if(left1==0&&left2==0){
-    move(1, 0, 1);
-  }
-  if(right1==0&&right2==0){
-    move(2, 0, 1);
+  if (Serial1.available()) {     // If anything comes in Serial1 (pins 0 & 1)
+    Serial.write(Serial1.read());   // read it and send it out Serial (USB)
   }
  
 

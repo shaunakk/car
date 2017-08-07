@@ -14,11 +14,12 @@ io.on('connection', function(socket) {
   console.log('A user connected');
 
   socket.on('joystickData', function(data) {
-      console.log((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 64);
+    console.log(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 64);
 
-  }); socket.on('disconnect', function() {
-  console.log('A user disconnected');
-});
+  });
+  socket.on('disconnect', function() {
+    console.log('A user disconnected');
+  });
 
 });
 

@@ -54,39 +54,54 @@ leftb = new Gpio(26, 'out')
 rightb = new Gpio(19, 'out')
 
 function ardusend(data) {
+  console.log(data)
   if (data > 32) {
     pow32.write(1, done())
+    console.log(data)
   } else {
     pow32.write(0, done())
+    console.log(data)
   }
   data = data - 32
   if (data > 16) {
+    console.log(data)
     pow16.write(1, done())
+    console.log(data)
   } else {
     pow16.write(0, done())
+    console.log(data)
   }
   data = data - 16
   if (data > 8) {
+    console.log(data)
     pow8.write(1, done())
+    console.log(data)
   } else {
     pow8.write(0, done())
+    console.log(data)
   }
   data = data - 8
   if (data > 4) {
+    console.log(data)
     pow4.write(1, done())
   } else {
     pow4.write(0, done())
+    console.log(data)
   }
   data = data - 4
   if (data > 2) {
     pow2.write(1, done())
+    console.log(data)
   } else {
     pow2.write(0, done())
+    console.log(data)
   }
   data = data - 2
   if (data > 1) {
     pow1.write(1, done())
+    console.log(data)
   } else {
     pow1.write(0, done())
+    console.log(data)
   }
 }

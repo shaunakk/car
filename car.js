@@ -10,6 +10,13 @@ port.on('open', () => {
   console.log('port opened');
 });
 server.listen(8080);
+SerialPort.open(function(err) {
+  if (err) {
+    console.log("Port open error: ", err);
+  } else {
+    console.log("Port opened!");
+  }
+});
 
 app.get('/', function(req, res) {
   res.send("Socket.io server for car \n Built by Shaunak Kale");

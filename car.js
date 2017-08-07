@@ -1,6 +1,5 @@
 var gpio = require('pigpio').Gpio
 var Gpio = require('onoff').Gpio
-var io = require('socket.io')(80);
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);

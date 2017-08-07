@@ -11,8 +11,11 @@ var users = require('./routes/users');
 var app = express();
 var gpio = require('pigpio').Gpio
 var Gpio = require('onoff').Gpio
+var app = require('express')();
 var server = require('http').Server(app);
-var io = require('socket.io')(app);
+var io = require('socket.io')(server);
+
+server.listen(8080);
 
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');

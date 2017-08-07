@@ -11,13 +11,15 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', function(socket) {
-  socket.emit('news', {
-    hello: 'world'
+  console.log('A user connected');
+
+  //Whenever someone disconnects this piece of code executed
+  socket.on('disconnect', function() {
+    console.log('A user disconnected');
   });
-  socket.on('my other event', function(data) {
-    console.log(data);
-  });
+
 });
+
 
 motor = new gpio(25, {
     mode: gpio.OUTPUT

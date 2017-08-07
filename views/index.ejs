@@ -4,7 +4,10 @@
 <head>
   <title> Stationary Base Demo </title>
   <script src="/javascripts/index.js"></script>
+</head>
 
+<body>
+  <div id="container"></div>
   <script>
     console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
@@ -29,10 +32,6 @@
         (joystick.down() ? ' down' : '')
     }, 1 / 30 * 1000);
   </script>
-</head>
-
-<body>
-  <div id="container"></div>
 </body>
 
 </html>

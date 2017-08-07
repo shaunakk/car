@@ -16,7 +16,7 @@ io.on('connection', function(socket) {
   console.log('A user connected');
 
   socket.on('joystickData', function(data) {
-    arduData = parseInt(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32)
+    arduData = parseInt(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32).toString()
     console.log(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32);
     ardusend(arduData)
 
@@ -47,10 +47,13 @@ setInterval(function() {
 
 
 function ardusend(data) {
-  port.write(data, function(err) {
-    if (err) {
-      return console.log('Error on write: ', err.message);
-    }
-    console.log('message written');
-  });
+  if (typeof data === 'string') {
+    port.write(data, function(err) {
+      if (err) {
+        return console.log('Error on write: ', err.message);
+      }
+      console.log('message written');
+    });
+  }
+
 }

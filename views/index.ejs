@@ -72,7 +72,7 @@
         (joystick.down() ? ' down' : '')
       )
       socket.emit('joystickData', [joystick.deltaX(), joystick.deltaY()]);
-    }, 1000);
+    }, 10);
   </script>
 </body>
 

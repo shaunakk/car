@@ -49,6 +49,7 @@ setInterval(function() {
 function ardusend(data) {
   if (typeof data === 'string') {
     port.write(data, function(err) {
+      console.log("in")
       if (err) {
         return console.log('Error on write: ', err.message);
       }

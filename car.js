@@ -14,7 +14,9 @@ io.on('connection', function(socket) {
   console.log('A user connected');
 
   socket.on('joystickData', function(data) {
+    arduData = parseInt(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32)
     console.log(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg) / 180) * 32 + 32);
+    ardusend(arduData)
 
   });
   socket.on('disconnect', function() {
@@ -50,26 +52,41 @@ leftf = new Gpio(20, 'out')
 rightf = new Gpio(21, 'out')
 leftb = new Gpio(26, 'out')
 rightb = new Gpio(19, 'out')
-num = 1
 
-function done() {}
-setInterval(
-  function() {
-    if (num % 2 == 0) {
-      pow16.write(1, done())
-      pow32.write(1, done())
-      leftf.write(0, done())
-      rightf.write(0, done())
-      leftb.write(0, done())
-      rightb.write(1, done())
-    } else {
-      pow16.write(0, done())
-      leftf.write(1, done())
-      rightf.write(1, done())
-      leftb.write(0, done())
-      rightb.write(0, done())
-      pow32.write(0, done())
-    }
-    num++
-  }, 500
-)
+function ardusend(data) {
+  if (data > 32) {
+    pow32.write(1, done())
+  } else {
+    pow32.write(0, done())
+  }
+  data = data - 32
+  if (data > 16) {
+    pow16.write(1, done())
+  } else {
+    pow16.write(0, done())
+  }
+  data = data - 16
+  if (data > 8) {
+    pow8.write(1, done())
+  } else {
+    pow8.write(0, done())
+  }
+  data = data - 8
+  if (data > 4) {
+    pow4.write(1, done())
+  } else {
+    pow4.write(0, done())
+  }
+  data = data - 4
+  if (data > 2) {
+    pow2.write(1, done())
+  } else {
+    pow2.write(0, done())
+  }
+  data = data - 2
+  if (data > 1) {
+    pow1.write(1, done())
+  } else {
+    pow1.write(0, done())
+  }
+}

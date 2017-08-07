@@ -3,14 +3,12 @@
 
 <head>
   <title> Stationary Base Demo </title>
-</head>
-
-<body>
   <script src="/javascripts/index.js"></script>
+
   <script>
     var joystick = new VirtualJoystick({
       mouseSupport: true,
-      stationaryBase: true,
+      container: document.getElementById('container'),
 
     });
     if (joystick.right()) {}
@@ -18,6 +16,10 @@
     if (joystick.up()) {}
     if (joystick.down()) {}
   </script>
+</head>
+
+<body>
+  <div id="container"></div>
 </body>
 
 </html>

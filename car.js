@@ -48,13 +48,13 @@ setInterval(function() {
 
 function ardusend(data) {
   arddata = data
-  if (typeof data.toString() === 'string') {
-    port.write(data.toString(), function(err) {
-      if (err) {
-        return console.log('Error on write: ', err.message);
-      }
-      console.log('message written');
-    });
-  }
+
+  port.write(data.toString(), function(err) {
+    if (err) {
+      return console.log('Error on write: ', err.message);
+    }
+    console.log('message written');
+  });
+
 
 }

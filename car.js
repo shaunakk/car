@@ -6,6 +6,9 @@ var SerialPort = require('serialport');
 var port = new SerialPort('/dev/tty-AMA0', {
   baudRate: 9600
 });
+port.on('open', () => {
+  console.log('port opened');
+});
 server.listen(8080);
 
 app.get('/', function(req, res) {
@@ -26,8 +29,6 @@ io.on('connection', function(socket) {
   });
 
 });
-
-function done() {}
 motor = new gpio(16, {
     mode: gpio.OUTPUT
   }),

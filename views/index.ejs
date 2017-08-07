@@ -45,7 +45,9 @@
   <div id="result"></div>
   </div>
   <script src="javascripts/index.js"></script>
+  <script src="/socket.io/lib/socket.js"></script>
   <script>
+    var socket = io();
     console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
     var joystick = new VirtualJoystick({

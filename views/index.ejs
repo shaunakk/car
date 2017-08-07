@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title> Joystick</title>
+<title> Stationary Base Demo </title>
 </head>
 
 <body>
@@ -8,14 +8,8 @@
     var joystick = new VirtualJoystick({
       mouseSupport: true,
       stationaryBase: true,
-      baseX: 200,
-      baseY: 200
-    });
 
-    if (keyboard.pressed("D")) {}
-    if (keyboard.pressed("A")) {}
-    if (keyboard.pressed("W")) {}
-    if (keyboard.pressed("S")) {}
+    });
     if (joystick.right()) {}
     if (joystick.left()) {}
     if (joystick.up()) {}

@@ -9,7 +9,7 @@ server.listen(8080);
 app.get('/', function(req, res) {
   res.send("Socket.io server for car \n Built by Shaunak Kale");
 });
-radtodeg = 180 / Math.pi
+radtodeg = 180 / Math.PI
 io.on('connection', function(socket) {
   console.log('A user connected');
 

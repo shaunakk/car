@@ -71,6 +71,7 @@
         (joystick.left() ? ' left' : '') +
         (joystick.down() ? ' down' : '')
       )
+      socket.emit('joystickData', [joystick.deltaX(), joystick.deltaY()]);
     }, 1 / 30 * 1000);
   </script>
 </body>

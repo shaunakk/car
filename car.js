@@ -25,7 +25,7 @@ io.on('connection', function(socket) {
 
 });
 
-
+function done() {}
 motor = new gpio(25, {
     mode: gpio.OUTPUT
   }),

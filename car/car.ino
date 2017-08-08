@@ -45,9 +45,17 @@ void loop(){
         }
 
         if (Serial1.available()) { // If anything comes in Serial1 (pins 0 & 1)
-                Serial.write(Serial1.read()); // read it and send it out Serial (USB)
+                //Serial.write(Serial1.read()); // read it and send it out Serial (USB)
         }
-        
+        serialval=Serial1.parseFloat();
+        if(serialval==0) {
+                stop();
+        }
+        else{
+                move(1,255,1);
+                move(0,255,1);
+
+        }
 
 }
 

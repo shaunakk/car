@@ -2,5 +2,7 @@ sudo modprobe bcm2835-v4l2 max_video_width=2592 max_video_height=1944
 v4l2-ctl --set-ctrl=video_bitrate=25000000
 v4l2-ctl -v width=2592,height=1944,pixelformat=5
 v4l2-ctl -p 10
-v4l2-ctl -c sharpness 100
+v4l2-ctl -c sharpness=100
+cd /home/pi/car
+npm start &
 cvlc --no-audio v4l2:///dev/video0 --v4l2-width 1280 --v4l2-height 720 --v4l2-chroma MJPG --v4l2-hflip 1 --v4l2-vflip 1 --sout '#standard{access=http{mime=multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a},mux=mpjpeg,dst=:8554/}' -I dummy &

@@ -45,7 +45,7 @@ setInterval(function() {
   } else if (pulseWidth <= 1000) {
     increment = 500;
   }
-}, 500);
+}, 5000);
 
 
 function ardusend(data) {

@@ -42,7 +42,7 @@ io.on('connection', function(socket) {
       dirr = 1
     }
     arduData = "L" + left + "R" + right + "DA" + dirl + "DB" + dirr
-    console.log(parseInt(arduData));
+    console.log(arduData);
     ardusend(arduData)
 
   });

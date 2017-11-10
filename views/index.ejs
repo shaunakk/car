@@ -51,6 +51,13 @@
   <script src="javascripts/index.js"></script>
   <script src="http://192.168.1.100:8080/socket.io/socket.io.js"></script>
   <script>
+    var width = window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+
+    var height = window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight;
     var socket = io.connect("http://192.168.1.100:8080");
     console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
     var joystick = new VirtualJoystick({
@@ -73,7 +80,7 @@
         (joystick.left() ? ' left' : '') +
         (joystick.down() ? ' down' : '')
       )
-      socket.emit('joystickData', [joystick.deltaX(), joystick.deltaY()]);
+      socket.emit('joystickData', [joystick.deltaX() * 255 / width, joystick.deltaY() * 255 / height]);
     }, 50);
   </script>
 </body>

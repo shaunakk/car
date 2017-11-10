@@ -3,6 +3,12 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var SerialPort = require('serialport');
+var left
+var max
+var right
+var dirr
+var dirl
+
 var port = new SerialPort('/dev/ttyAMA0', {baudRate: 115200});
 port.on('open', () => {
   console.log('port opened');
@@ -12,12 +18,30 @@ server.listen(8080);
 app.get('/', function(req, res) {
   res.send("Socket.io server for car \n Built by Shaunak Kale");
 });
-radtodeg = 180 / Math.PI
 io.on('connection', function(socket) {
   console.log('A user connected');
 
   socket.on('joystickData', function(data) {
-    arduData = parseFloat(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg)))
+    left = parseInt(data[1]) + parseInt(data[0])
+    right = parseInt(data[1]) - parseInt(data[0])
+    max = Math.max(Math.abs(left), Math.abs(right));
+    if (max > 1.0) {
+      left /= max;
+      right /= max;
+    }
+    if (left < 0) {
+      left = Math.abs(left)
+      dirl = 0
+    } else {
+      dirl = 1
+    }
+    if (right < 0) {
+      right = Math.abs(right)
+      dirr = 0
+    } else {
+      dirr = 1
+    }
+    arduData = "L" + left + "R" + right + "DA" + dirl + "DB" + dirr
     console.log(parseInt(arduData));
     ardusend(arduData)
 

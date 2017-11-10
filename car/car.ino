@@ -42,8 +42,6 @@ void loop(){
         serialVal=Serial1.parseInt();
         for (char i = 3; i >= 0; i++){
           Serial.print(String(serialVal));
-          Serial.print(String(sin(serialVal*3.14/180)));
-          Serial.print(String(cos(serialVal*3.14/180)));
         }
         if(serialVal==0) {
                 stop();

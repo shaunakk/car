@@ -43,8 +43,7 @@ io.on('connection', function(socket) {
     }
     arduData = "L" + left + "R" + right + "DA" + dirl + "DB" + dirr
     console.log(arduData);
-    ardusend(arduData)
-
+    ardusend(arduData);
   });
   socket.on('disconnect', function() {
     console.log('A user disconnected');

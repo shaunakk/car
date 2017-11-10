@@ -25,7 +25,7 @@ io.on('connection', function(socket) {
     left = parseInt(data[1]) + parseInt(data[0])
     right = parseInt(data[1]) - parseInt(data[0])
     max = Math.max(Math.abs(left), Math.abs(right));
-    if (max > 1.0) {
+    if (max > 255) {
       left /= max;
       right /= max;
     }
@@ -41,7 +41,7 @@ io.on('connection', function(socket) {
     } else {
       dirr = 1
     }
-    arduData = "L" + left + "R" + right + "DA" + dirl + "DB" + dirr
+    arduData = "L" + parseInt(left) + "R" + parseInt(right) + "DA" + dirl + "DB" + dirr
     console.log(arduData);
     ardusend(arduData);
   });

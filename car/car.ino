@@ -2,7 +2,7 @@
 #include <CurieIMU.h>
 
 #include <Servo.h>
-float serialVal;
+int serialVal;
 int STBY = 6; //standby
 
 //Motor A
@@ -39,9 +39,9 @@ void setup(){
 }
 
 void loop(){
-        serialVal=Serial1.parseFloat();
+        serialVal=Serial1.parseInt();
         for (char i = 3; i >= 0; i++){
-          Serial.write(serialVal.binary[i]);
+          Serial.print(String(serialVal));
         }
         if(serialVal==0) {
                 stop();

@@ -21,7 +21,7 @@ void move(int motor, int speed, int direction);
 void stop();
 void setup(){
         pinMode(13,INPUT);
-        Serial.begin(9600);
+        Serial.begin(115200);
         Serial1.begin(115200);
         pinMode(STBY, OUTPUT);
         pinMode(PWMA, OUTPUT);
@@ -42,16 +42,17 @@ void loop(){
         serialVal=Serial1.parseInt();
         for (char i = 3; i >= 0; i++){
           Serial.print(String(serialVal));
+          Serial.print(String(sin(serialVal*3.14/180)));
+          Serial.print(String(cos(serialVal*3.14/180)));
         }
         if(serialVal==0) {
                 stop();
         }
         else{
-                move(1,255,1);
-                move(0,255,1);
+                move(1,sin(serialVal*3.14/180)*255,1);
+                move(0,cos(serialVal*3.14/180)*255,1);
 
         }
-
 }
 
 

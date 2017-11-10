@@ -3,14 +3,11 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var SerialPort = require('serialport');
-var port = new SerialPort('/dev/ttyAMA0', {
-  baudRate: 115200
-});
+var port = new SerialPort('/dev/ttyAMA0', {baudRate: 115200});
 port.on('open', () => {
   console.log('port opened');
 });
 server.listen(8080);
-
 
 app.get('/', function(req, res) {
   res.send("Socket.io server for car \n Built by Shaunak Kale");
@@ -21,7 +18,7 @@ io.on('connection', function(socket) {
 
   socket.on('joystickData', function(data) {
     arduData = parseFloat(((Math.atan2(parseFloat(data[0]), parseFloat(data[1])) * radtodeg)))
-    console.log(arduData);
+    console.log(parseInt(arduData));
     ardusend(arduData)
 
   });
@@ -30,11 +27,9 @@ io.on('connection', function(socket) {
   });
 
 });
-motor = new gpio(16, {
-    mode: gpio.OUTPUT
-  }),
-  pulseWidth = 1500,
-  increment = 500;
+motor = new gpio(16, {mode: gpio.OUTPUT}),
+pulseWidth = 1500,
+increment = 500;
 
 setInterval(function() {
   motor.servoWrite(pulseWidth);
@@ -47,7 +42,6 @@ setInterval(function() {
   }
 }, 5000);
 
-
 function ardusend(data) {
   arddata = data
   port.write(data.toString() + " ", function(err) {
@@ -56,6 +50,5 @@ function ardusend(data) {
     }
     console.log('message written');
   });
-
 
 }

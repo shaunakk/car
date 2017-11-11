@@ -44,11 +44,9 @@ void setup(){
 }
 
 void loop(){
+
     character = Serial1.read(); //read the first byte on serial
-    if(Serial1.available()){
-    //Serial.write(character);
-    }
-    if(character != 10 && character != ','){ //newline(10) and , are special
+    if(character != 'L' && character != 'R' && character != 'A' && character != 'B'){ //newline(10) and , are special
         buf = buf*10;
         buf += (int)(character - '0'); //these two lines turn the string into an integer
     } else if(character == 'L'){
@@ -72,7 +70,8 @@ void loop(){
             move(0,M2,dirr);
 
     }
-        Serial.write(buf);
+        Serial.write(M1);
+       
 }
 
 

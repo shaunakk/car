@@ -41,7 +41,7 @@ io.on('connection', function(socket) {
     } else {
       dirr = 1
     }
-    arduData = parseInt(left) + "L" + parseInt(right) + "R" + dirl + "A" + dirr + "B"
+    arduData = "L" + parseInt(left) + "R" + parseInt(right) + "A" + dirl + "B" + dirr
     console.log(arduData);
     ardusend(arduData);
   });

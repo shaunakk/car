@@ -41,7 +41,17 @@ io.on('connection', function(socket) {
     } else {
       dirr = 1
     }
-    arduData = "L" + parseInt(left) + "R" + parseInt(right) + "A" + dirl + "B" + dirr
+
+    arduData = new Buffer([
+      'L',
+      parseInt(left),
+      'R',
+      parseInt(right),
+      'A',
+      dirl,
+      'B',
+      dirr
+    ], "utf-8");
     console.log(arduData);
     ardusend(arduData);
   });

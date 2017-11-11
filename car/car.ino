@@ -27,7 +27,7 @@ void stop();
 void setup(){
         pinMode(13,INPUT);
         Serial.begin(115200);
-        Serial1.begin(115200);
+        Serial1.begin(9600);
         pinMode(STBY, OUTPUT);
         pinMode(PWMA, OUTPUT);
         pinMode(AIN1, OUTPUT);
@@ -44,7 +44,8 @@ void setup(){
 }
 
 void loop(){
-    character = Serial.read(); //read the first byte on serial
+    character = Serial1.read(); //read the first byte on serial
+    Serial.write(Serial1.read());
     if(character != 10 && character != ','){ //newline(10) and , are special
         buf = buf*10;
         buf += (int)(character - '0'); //these two lines turn the string into an integer
@@ -69,11 +70,12 @@ void loop(){
                 move(0,M2,dirr);
 
         }
-        Serial.print(String(M1));
-        Serial.print(String(dirl));
-        Serial.print(String(M2));
-        Serial.print(String(dirr));
-        delay(1000);
+//        Serial.print(String(buf));
+//        Serial.print(String(M1));
+//        Serial.print(String(dirl));
+//        Serial.print(String(M2));
+//        Serial.print(String(dirr));
+delay(10);
 }
 
 

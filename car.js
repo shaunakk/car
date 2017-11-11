@@ -9,7 +9,7 @@ var right
 var dirr
 var dirl
 
-var port = new SerialPort('/dev/ttyAMA0', {baudRate: 115200});
+var port = new SerialPort('/dev/ttyAMA0', {baudRate: 9600});
 port.on('open', () => {
   console.log('port opened');
 });

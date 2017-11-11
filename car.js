@@ -52,7 +52,7 @@ io.on('connection', function(socket) {
       'B',
       dirr
     ], "utf-8");
-    console.log(arduData);
+    console.log(arduData.toString('ascii'));
     ardusend(arduData);
   });
   socket.on('disconnect', function() {

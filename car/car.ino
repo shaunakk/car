@@ -19,7 +19,7 @@ int dirl = 1;
 int M1=0;
 int M2=0;
 int buf;
-byte character;
+char character;
 void setup();
 void loop();
 void move(int motor, int speed, int direction);
@@ -45,7 +45,9 @@ void setup(){
 
 void loop(){
     character = Serial1.read(); //read the first byte on serial
-    Serial.write(Serial1.read());
+    if(Serial1.available()){
+    //Serial.write(character);
+    }
     if(character != 10 && character != ','){ //newline(10) and , are special
         buf = buf*10;
         buf += (int)(character - '0'); //these two lines turn the string into an integer
@@ -62,20 +64,15 @@ void loop(){
         dirr = buf; //after a space the buffer has the y coordinate
         buf = 0;
     }
-        if(M1==0&&M2==0) {
-                stop();
-        }
-        else{
-                move(1,M1,dirl);
-                move(0,M2,dirr);
+    if(M1==0&&M2==0) {
+            stop();
+    }
+    else{
+            move(1,M1,dirl);
+            move(0,M2,dirr);
 
-        }
-//        Serial.print(String(buf));
-//        Serial.print(String(M1));
-//        Serial.print(String(dirl));
-//        Serial.print(String(M2));
-//        Serial.print(String(dirr));
-delay(10);
+    }
+        Serial.write(buf);
 }
 
 

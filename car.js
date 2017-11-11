@@ -51,7 +51,7 @@ io.on('connection', function(socket) {
       dirl,
       'B',
       dirr
-    ], "utf-8");
+    ], "ascii");
     console.log(arduData.toString('ascii'));
     ardusend(arduData);
   });

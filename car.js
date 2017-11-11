@@ -66,8 +66,7 @@ setInterval(function() {
 }, 5000);
 
 function ardusend(data) {
-  arddata = data
-  port.write(data.toString() + " ", function(err) {
+  port.write(data, function(err) {
     if (err) {
       return console.log('Error on write: ', err.message);
     }

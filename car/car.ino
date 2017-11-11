@@ -26,7 +26,7 @@ void move(int motor, int speed, int direction);
 void stop();
 void setup(){
         pinMode(13,INPUT);
-        Serial.begin(115200);
+        Serial.begin(9600);
         Serial1.begin(9600);
         pinMode(STBY, OUTPUT);
         pinMode(PWMA, OUTPUT);

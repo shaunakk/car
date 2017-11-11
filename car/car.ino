@@ -14,7 +14,12 @@ int AIN2 = 8; //Direction
 int PWMB = 3; //Speed control
 int BIN1 = 4; //Direction
 int BIN2 = 5; //Direction
-
+int dirr = 1;
+int dirl = 1;
+int M1=0;
+int M2=0;
+int buf;
+byte character;
 void setup();
 void loop();
 void move(int motor, int speed, int direction);
@@ -39,18 +44,36 @@ void setup(){
 }
 
 void loop(){
-        serialVal=Serial1.parseInt();
-        for (char i = 3; i >= 0; i++){
-          Serial.print(String(serialVal));
-        }
-        if(serialVal==0) {
+    character = Serial.read(); //read the first byte on serial
+    if(character != 10 && character != ','){ //newline(10) and , are special
+        buf = buf*10;
+        buf += (int)(character - '0'); //these two lines turn the string into an integer
+    } else if(character == 'L'){
+        M1 = buf; //after a comma the buffer has the x coordinate
+        buf = 0;
+    } else if(character == 'R'){
+        M2 = buf; //after a space the buffer has the y coordinate
+        buf = 0;
+    } else if(character == 'A'){
+        dirl = buf; //after a space the buffer has the y coordinate
+        buf = 0;
+    } else if(character == 'B'){
+        dirr = buf; //after a space the buffer has the y coordinate
+        buf = 0;
+    }
+        if(M1==0&&M2==0) {
                 stop();
         }
         else{
-                move(1,sin(serialVal*3.14/180)*255,1);
-                move(0,cos(serialVal*3.14/180)*255,1);
+                move(1,M1,dirl);
+                move(0,M2,dirr);
 
         }
+        Serial.print(String(M1));
+        Serial.print(String(dirl));
+        Serial.print(String(M2));
+        Serial.print(String(dirr));
+        delay(1000);
 }
 
 

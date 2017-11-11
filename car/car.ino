@@ -50,6 +50,7 @@ void loop(){
         buf = buf*10;
         buf += (int)(character - '0'); //these two lines turn the string into an integer
     } else if(character == 'L'){
+        Serial.print("M1");
         M1 = buf; //after a comma the buffer has the x coordinate
         buf = 0;
     } else if(character == 'R'){
@@ -70,7 +71,8 @@ void loop(){
             move(0,M2,dirr);
 
     }
-        Serial.write(M1);
+        Serial.println(M1);
+        delay(100);
        
 }
 

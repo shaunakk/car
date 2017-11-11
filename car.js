@@ -41,41 +41,33 @@ io.on('connection', function(socket) {
     } else {
       dirr = 1
     }
-
-    arduData = new Buffer([
-      'L',
-      parseInt(left),
-      'R',
-      parseInt(right),
-      'A',
-      dirl,
-      'B',
-      dirr
-    ], "ascii");
-    console.log(arduData.toString('ascii'));
+    arduData = "L" + parseInt(left) + "R" + parseInt(right) + "A" + dirl + "B" + dirr
+    console.log(arduData);
     ardusend(arduData);
   });
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });
+
 });
 motor = new gpio(16, {mode: gpio.OUTPUT}),
-pulseWidth = 750,
+pulseWidth = 1500,
 increment = 500;
 
 setInterval(function() {
   motor.servoWrite(pulseWidth);
 
   pulseWidth += increment;
-  if (pulseWidth >= 1250) {
+  if (pulseWidth >= 1500) {
     increment = -500;
-  } else if (pulseWidth <= 750) {
+  } else if (pulseWidth <= 1000) {
     increment = 500;
   }
 }, 5000);
 
 function ardusend(data) {
-  port.write(data, 'ascii', function(err) {
+  arddata = data
+  port.write(data, function(err) {
     if (err) {
       return console.log('Error on write: ', err.message);
     }

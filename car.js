@@ -33,12 +33,14 @@ io.on('connection', function(socket) {
       left = Math.abs(left)
       dirl = 0
     } else {
+      left = Math.abs(left)
       dirl = 1
     }
     if (right < 0) {
       right = Math.abs(right)
       dirr = 0
     } else {
+      right = Math.abs(right)
       dirr = 1
     }
     arduData = parseInt(left) + "L" + parseInt(right) + "R" + dirl + "DA" + dirr + "DB"

@@ -9,7 +9,7 @@ var right
 var dirr
 var dirl
 
-var port = new SerialPort('/dev/ttyAMA0', {baudRate: 9600});
+var port = new SerialPort('/dev/ttyAMA0', {baudRate: 115200});
 port.on('open', () => {
   console.log('port opened');
 });
@@ -41,7 +41,7 @@ io.on('connection', function(socket) {
     } else {
       dirr = 1
     }
-    arduData = left + "L" + right + "R" + dirl + "A" + dirr + "B"
+    arduData = parseInt(left) + "L" + parseInt(right) + "R" + dirl + "DA" + dirr + "DB"
     console.log(arduData);
     ardusend(arduData);
   });
@@ -67,7 +67,7 @@ setInterval(function() {
 
 function ardusend(data) {
   arddata = data
-  port.write(data, function(err) {
+  port.write(data.toString(), function(err) {
     if (err) {
       return console.log('Error on write: ', err.message);
     }

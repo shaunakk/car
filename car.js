@@ -24,11 +24,6 @@ io.on('connection', function(socket) {
   socket.on('joystickData', function(data) {
     left = parseInt(data[1]) + parseInt(data[0])
     right = parseInt(data[1]) - parseInt(data[0])
-    max = Math.max(Math.abs(left), Math.abs(right));
-    if (max > 255) {
-      left /= max;
-      right /= max;
-    }
     if (left < 0) {
       left = Math.abs(left)
       dirl = 0
@@ -43,7 +38,13 @@ io.on('connection', function(socket) {
       right = Math.abs(right)
       dirr = 1
     }
-    arduData = parseInt(left) + "L" + parseInt(right) + "R" + dirl + "DA" + dirr + "DB"
+    if (right > 255) {
+      right = 255
+    }
+    if (left > 255) {
+      left = 255
+    }
+    arduData = left + "L" + right + "R" + dirl + "DA" + dirr + "DB"
     console.log(arduData);
     ardusend(arduData);
   });

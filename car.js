@@ -42,8 +42,9 @@ io.on('connection', function(socket) {
       right = 255
     }
     if (left > 255) {
-      left = 230
+      left = 255
     }
+    left = left * .8
     arduData = left + "L" + right + "R" + dirl + "DA" + dirr + "DB"
     console.log(arduData);
     ardusend(arduData);

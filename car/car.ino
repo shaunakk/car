@@ -18,15 +18,16 @@ int dirr = 1;
 int dirl = 1;
 int M1=0;
 int M2=0;
-int buf;
+String buf;
 char character;
+
 void setup();
 void loop();
 void move(int motor, int speed, int direction);
 void stop();
 void setup(){
         pinMode(13,INPUT);
-        Serial.begin(9600);
+        Serial.begin(115200);
         Serial1.begin(9600);
         pinMode(STBY, OUTPUT);
         pinMode(PWMA, OUTPUT);
@@ -44,36 +45,35 @@ void setup(){
 }
 
 void loop(){
-
+  if(Serial1.available()){
     character = Serial1.read(); //read the first byte on serial
-    if(character != 'L' && character != 'R' && character != 'A' && character != 'B'){ //newline(10) and , are special
-        buf = buf*10;
-        buf += (int)(character - '0'); //these two lines turn the string into an integer
+    
+     if(character != 'L' && character != 'R' && character != 'A' && character != 'B'){ 
+         buf+=character;
     } else if(character == 'L'){
-        Serial.print("M1");
-        M1 = buf; //after a comma the buffer has the x coordinate
-        buf = 0;
+        Serial.print(buf);
+        M1=buf.toInt();
+        buf = "";
     } else if(character == 'R'){
-        M2 = buf; //after a space the buffer has the y coordinate
-        buf = 0;
+        Serial.print(buf);
+        M2=buf.toInt();
+        buf = "";
     } else if(character == 'A'){
-        dirl = buf; //after a space the buffer has the y coordinate
-        buf = 0;
+        Serial.print(buf);
+        dirl=buf.toInt();
+        buf = "";
     } else if(character == 'B'){
-        dirr = buf; //after a space the buffer has the y coordinate
-        buf = 0;
-    }
+        Serial.print(buf);
+        dirr=buf.toInt();
+        buf = "";
+    } 
+    move(1,M1,dirl);
+    move(0,M2,dirr);
     if(M1==0&&M2==0) {
             stop();
     }
-    else{
-            move(1,M1,dirl);
-            move(0,M2,dirr);
-
-    }
-        Serial.println(M1);
-        delay(100);
-       
+  }
+  
 }
 
 
@@ -108,3 +108,5 @@ void stop(){
 //enable standby
         digitalWrite(STBY, LOW);
 }
+
+

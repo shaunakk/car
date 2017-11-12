@@ -80,7 +80,7 @@
         (joystick.left() ? ' left' : '') +
         (joystick.down() ? ' down' : '')
       )
-      socket.emit('joystickData', [joystick.deltaX() * 255 / width, joystick.deltaY() * 255 / height]);
+      socket.emit('joystickData', [joystick.deltaX(), joystick.deltaY()]);
     }, 50);
   </script>
 </body>

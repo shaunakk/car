@@ -26,17 +26,17 @@ io.on('connection', function(socket) {
     right = parseInt(data[1]) - parseInt(data[0])
     if (left < 0) {
       left = Math.abs(left)
-      dirl = 0
+      dirl = 1
     } else {
       left = Math.abs(left)
-      dirl = 1
+      dirl = 0
     }
     if (right < 0) {
       right = Math.abs(right)
-      dirr = 0
+      dirr = 1
     } else {
       right = Math.abs(right)
-      dirr = 1
+      dirr = 0
     }
     if (right > 255) {
       right = 255

@@ -28,7 +28,7 @@ void stop();
 void setup(){
         pinMode(13,INPUT);
         Serial.begin(115200);
-        Serial1.begin(9600);
+        Serial1.begin(115200);
         pinMode(STBY, OUTPUT);
         pinMode(PWMA, OUTPUT);
         pinMode(AIN1, OUTPUT);

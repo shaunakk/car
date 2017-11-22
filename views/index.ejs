@@ -44,9 +44,9 @@
   <div id="result"></div>
   </div>
   <script src="javascripts/index.js"></script>
-  <script src="http://192.168.1.100:8080/socket.io/socket.io.js"></script>
+  <script src="http://192.168.1.139:8080/socket.io/socket.io.js"></script>
   <script>
-    var socket = io.connect("http://192.168.1.100:8080");
+    var socket = io.connect("http://192.168.1.139:8080");
     console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
     var joystick = new VirtualJoystick({
       container: document.getElementById('container'),

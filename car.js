@@ -26,12 +26,13 @@ socket.on('pan',(data)=>{
 var panCam=setInterval(()=> {
   motor.servoWrite(pulseWidth);
   pulseWidth += increment;
-  if (pulseWidth >= 2000) {
+  if (pulseWidth >= 2250) {
     increment = -25;
-  } else if (pulseWidth <= 1000) {
+  } else if (pulseWidth <= 750) {
+motor.servoWrite(1500)
 clearInterval(panCam);    
 }
-}, 40);
+}, 30);
 
 })
   socket.on('joystickData', function(data) {

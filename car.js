@@ -58,7 +58,7 @@ clearInterval(panCam);
     if (left > 255) {
       left = 255
     }
-left=parseInt(left*.7)
+left=parseInt(right*.7)
     arduData =left + "L" + right + "R" + dirl + "DA" + dirr + "DB"
     ardusend(arduData);
   });

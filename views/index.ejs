@@ -2,20 +2,16 @@
 
 <head>
   <meta charset="utf-8">
-
-  <style>
-    body {
-      overflow: hidden;
-      padding: 0;
-      margin: 0;
-      background: url(http://192.168.1.139:8554);
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-    }
+<style>
+    
+body {
+background:#000000; 
+background: black url(http://192.168.1.139:8554);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+	background-size:contain;
+}
     #info {
       position: absolute;
       top: 0px;
@@ -41,6 +37,7 @@
 </head>
 
 <body>
+<button style="font-size:48px" id="pan" onclick="pan()">Pan Camera</button>
   <div id="container"></div>
   <div id="result"></div>
   </div>
@@ -71,6 +68,9 @@
       )
       socket.emit('joystickData', [joystick.deltaX(), joystick.deltaY()]);
     }, 50);
+	function pan(){
+	socket.emit('pan',true)
+	}
   </script>
 </body>
 

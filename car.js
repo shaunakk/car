@@ -9,7 +9,7 @@ var right
 var dirr
 var dirl
 
-var port = new SerialPort('/dev/ttyAMA0', {baudRate: 115200});
+var port = new SerialPort('/dev/serial0', {baudRate: 115200});
 port.on('open', () => {
   console.log('port opened');
 });
@@ -20,7 +20,20 @@ app.get('/', function(req, res) {
 });
 io.on('connection', function(socket) {
   console.log('A user connected');
+socket.on('pan',(data)=>{
+  pulseWidth = 1500,
+  increment = 25;
+var panCam=setInterval(()=> {
+  motor.servoWrite(pulseWidth);
+  pulseWidth += increment;
+  if (pulseWidth >= 2000) {
+    increment = -25;
+  } else if (pulseWidth <= 1000) {
+clearInterval(panCam);    
+}
+}, 40);
 
+})
   socket.on('joystickData', function(data) {
     left = parseInt(data[1]) + parseInt(data[0])
     right = parseInt(data[1]) - parseInt(data[0])
@@ -44,9 +57,7 @@ io.on('connection', function(socket) {
     if (left > 255) {
       left = 255
     }
-    left = left * .8
     arduData = left + "L" + right + "R" + dirl + "DA" + dirr + "DB"
-    console.log(arduData);
     ardusend(arduData);
   });
   socket.on('disconnect', function() {
@@ -55,22 +66,12 @@ io.on('connection', function(socket) {
 
 });
 motor = new gpio(16, {mode: gpio.OUTPUT}),
-pulseWidth = 1500,
-increment = 500;
 
-setInterval(function() {
-  motor.servoWrite(pulseWidth);
 
-  pulseWidth += increment;
-  if (pulseWidth >= 1500) {
-    increment = -500;
-  } else if (pulseWidth <= 1000) {
-    increment = 500;
-  }
-}, 5000);
+motor.servoWrite(1500)
 
 function ardusend(data) {
-  arddata = data
+  console.log(data)
   port.write(data.toString(), function(err) {
     if (err) {
       return console.log('Error on write: ', err.message);

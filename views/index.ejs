@@ -2,14 +2,14 @@
 
 <head>
   <meta charset="utf-8">
-<style>
-    
-body {
-	background: black url(http://192.168.1.139:8554);
-    background-repeat: no-repeat;
-    background-position: center;
-	background-size:contain;
-}
+  <style>
+    body {
+      background: black url(http://192.168.86.39:8554);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+
     #info {
       position: absolute;
       top: 0px;
@@ -17,13 +17,16 @@ body {
       padding: 5px;
       text-align: center;
     }
+
     #info a {
       color: #66F;
       text-decoration: none;
     }
+
     #info a:hover {
       text-decoration: underline;
     }
+
     #container {
       width: 100%;
       height: 100%;
@@ -35,26 +38,26 @@ body {
 </head>
 
 <body>
-<button style="font-size:48px" id="pan" onclick="pan()">Pan Camera</button>
+  <button style="font-size:48px" id="pan" onclick="pan()">Pan Camera</button>
   <div id="container"></div>
   <div id="result"></div>
   </div>
   <script src="javascripts/index.js"></script>
-  <script src="http://192.168.1.139:8080/socket.io/socket.io.js"></script>
+  <script src="http://192.168.86.39:8080/socket.io/socket.io.js"></script>
   <script>
-    var socket = io.connect("http://192.168.1.139:8080");
+    var socket = io.connect("http://192.168.86.39:8080");
     console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
     var joystick = new VirtualJoystick({
       container: document.getElementById('container'),
       mouseSupport: true,
     });
-    joystick.addEventListener('touchStart', function() {
+    joystick.addEventListener('touchStart', function () {
       console.log('down')
     })
-    joystick.addEventListener('touchEnd', function() {
+    joystick.addEventListener('touchEnd', function () {
       console.log('up')
     })
-    setInterval(function() {
+    setInterval(function () {
       console.log(
         '<b>Result:</b> ' +
         ' dx:' + joystick.deltaX() +
@@ -66,9 +69,9 @@ body {
       )
       socket.emit('joystickData', [joystick.deltaX(), joystick.deltaY()]);
     }, 50);
-	function pan(){
-	socket.emit('pan',true)
-	}
+    function pan() {
+      socket.emit('pan', true)
+    }
   </script>
 </body>
 

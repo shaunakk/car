@@ -86,6 +86,11 @@
     function pan() {
       socket.emit('pan', true)
     }
+    $('#ex1').slider({
+      formatter: function (value) {
+        console.log('Current value: ' + value);
+      }
+    });
   </script>
 </body>
 

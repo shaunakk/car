@@ -2,18 +2,24 @@
 #include <CurieIMU.h>
 
 #include <Servo.h>
+#include <LiquidCrystal.h>
+
+int hrs=0;
+int mins=0;
+int secs=0;
+LiquidCrystal lcd(12,11,5,4,7,2);
 int serialVal;
 int STBY = 6; //standby
-
+int counter=0;
 //Motor A
 int PWMA = 9; //Speed control
-int AIN1 = 7; //Direction
-int AIN2 = 8; //Direction
+int AIN1 = A0; //Direction
+int AIN2 = A1; //Direction
 
 //Motor B
 int PWMB = 3; //Speed control
-int BIN1 = 4; //Direction
-int BIN2 = 5; //Direction
+int BIN1 = A2; //Direction
+int BIN2 = A3; //Direction
 int dirr = 1;
 int dirl = 1;
 int M1=0;
@@ -21,8 +27,6 @@ int M2=0;
 String buf;
 char character;
 
-void setup();
-void loop();
 void move(int motor, int speed, int direction);
 void stop();
 void setup(){
@@ -42,12 +46,22 @@ void setup(){
         pinMode(A3, INPUT);
         pinMode(A4, INPUT);
         pinMode(A5, INPUT);
+        lcd.begin(16, 2);
+        lcd.clear();
+        lcd.print("Welcome!");
+        delay(2000);
+        lcd.clear();
+        lcd.print("By Shaunak Kale");
+        delay(4000);
+        CurieIMU.begin();
+        CurieIMU.setGyroRange(360);
+
 }
 
 void loop(){
   if(Serial1.available()){
     character = Serial1.read(); //read the first byte on serial
-    
+
      if(character != 'L' && character != 'R' && character != 'A' && character != 'B'){ 
          buf+=character;
     } else if(character == 'L'){
@@ -73,9 +87,27 @@ void loop(){
             stop();
     }
   }
+
+  if(counter==100000){
+    if(Serial1.available()){
+    lcd.setCursor(0,0);
+    lcd.print("Not Available    ");
+  }
+  else LCD();
+    counter=0;
+  }
+  counter++; 
   
 }
+float convertRawGyro(int gRaw) {
+  // since we are using 250 degrees/seconds range
+  // -250 maps to a raw value of -32768
+  // +250 maps to a raw value of 32767
+  
+  float g = (gRaw * 2500.0) / 32768.0;
 
+  return g;
+}
 
 void move(int motor, int speed, int direction){
 //Move specific motor at speed and direction
@@ -103,10 +135,44 @@ void move(int motor, int speed, int direction){
                 analogWrite(PWMB, speed);
         }
 }
+void LCD(){
+   lcd.setCursor(0,0);
+  int gxRaw, gyRaw, gzRaw;         // raw gyro values
+  float gx, gy, gz;
+  // read raw gyro measurements from device
+  CurieIMU.readGyro(gxRaw, gyRaw, gzRaw);
 
+  // convert the raw gyro data to degrees/second
+  gx = convertRawGyro(gxRaw);
+  gy = convertRawGyro(gyRaw);
+  gz = convertRawGyro(gzRaw);
+
+  // display tab-separated gyro x/y/z values
+  Serial.print("g:\t");
+  Serial.print(gx);
+  Serial.print("\t");
+  Serial.print(gy);
+  Serial.print("\t");
+  Serial.print(gz);
+  Serial.println();
+  lcd.print(String("X:") + gx +" Y:"+ gy );
+  lcd.setCursor(0,1);
+
+  lcd.print("UPTIME: ");
+  secs=millis()/1000;
+  hrs=secs/3600;
+  mins=secs/60;
+  if(hrs<10)lcd.print("0");
+  lcd.print(hrs);
+  lcd.print(":");
+  mins=(secs%3600)/60;
+  if(mins<10) lcd.print("0");
+  lcd.print(mins);
+  lcd.print(":");
+  if(secs%60<10) lcd.print("0");
+  lcd.print(secs%60);
+}
 void stop(){
 //enable standby
         digitalWrite(STBY, LOW);
 }
-
-

@@ -22,7 +22,7 @@ io.on('connection', function (socket) {
   console.log('A user connected');
   socket.on('pan', (data) => {
 
-    motor.servoWrite(750 + 75 * data);
+    motor.servoWrite(750 + 10 * data);
 
 
   })

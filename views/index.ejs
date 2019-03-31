@@ -50,7 +50,6 @@
 </head>
 
 <body>
-  <button class="btn btn-primary" style="font-size:48px" id="pan" onclick="pan()">Pan Camera</button>
   <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1"
     data-slider-value="14" />
   <div id="container"></div>
@@ -83,12 +82,12 @@
       )
       socket.emit('joystickData', [joystick.deltaX(), joystick.deltaY()]);
     }, 50);
-    function pan() {
-      socket.emit('pan', true)
+    function pan(num) {
+      socket.emit('pan', num)
     }
     $('#ex1').slider({
       formatter: function (value) {
-        console.log('Current value: ' + value);
+        pan(value)
       }
     });
   </script>

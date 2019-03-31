@@ -9,33 +9,24 @@ var right
 var dirr
 var dirl
 
-var port = new SerialPort('/dev/serial0', {baudRate: 115200});
+var port = new SerialPort('/dev/serial0', { baudRate: 115200 });
 port.on('open', () => {
   console.log('port opened');
 });
 server.listen(8080);
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.send("Socket.io server for car \n Built by Shaunak Kale");
 });
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
   console.log('A user connected');
-socket.on('pan',(data)=>{
-  pulseWidth = 1500,
-  increment = 25;
-var panCam=setInterval(()=> {
-  motor.servoWrite(pulseWidth);
-  pulseWidth += increment;
-  if (pulseWidth >= 2250) {
-    increment = -25;
-  } else if (pulseWidth <= 750) {
-motor.servoWrite(1500)
-clearInterval(panCam);    
-}
-}, 30);
+  socket.on('pan', (data) => {
 
-})
-  socket.on('joystickData', function(data) {
+    motor.servoWrite(750 + 75 * data);
+
+
+  })
+  socket.on('joystickData', function (data) {
     left = parseInt(data[1]) + parseInt(data[0])
     right = parseInt(data[1]) - parseInt(data[0])
     if (left < 0) {
@@ -58,23 +49,23 @@ clearInterval(panCam);
     if (left > 255) {
       left = 255
     }
-left=parseInt(right*.7)
-    arduData =left + "L" + right + "R" + dirl + "DA" + dirr + "DB"
+    left = parseInt(right * .7)
+    arduData = left + "L" + right + "R" + dirl + "DA" + dirr + "DB"
     ardusend(arduData);
   });
-  socket.on('disconnect', function() {
+  socket.on('disconnect', function () {
     console.log('A user disconnected');
   });
 
 });
-motor = new gpio(16, {mode: gpio.OUTPUT}),
+motor = new gpio(16, { mode: gpio.OUTPUT }),
 
 
-motor.servoWrite(1500)
+  motor.servoWrite(1500)
 
 function ardusend(data) {
   console.log(data)
-  port.write(data.toString(), function(err) {
+  port.write(data.toString(), function (err) {
     if (err) {
       return console.log('Error on write: ', err.message);
     }

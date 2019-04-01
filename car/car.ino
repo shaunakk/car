@@ -7,19 +7,19 @@
 int hrs=0;
 int mins=0;
 int secs=0;
-LiquidCrystal lcd(12,11,5,4,7,2);
+LiquidCrystal lcd(A5,A4,A3,A2,A1,A0);
 int serialVal;
 int STBY = 6; //standby
 int counter=0;
 //Motor A
 int PWMA = 9; //Speed control
-int AIN1 = A0; //Direction
-int AIN2 = A1; //Direction
+int AIN1 = 2; //Direction
+int AIN2 = 5; //Direction
 
 //Motor B
 int PWMB = 3; //Speed control
-int BIN1 = A2; //Direction
-int BIN2 = A3; //Direction
+int BIN1 = 7; //Direction
+int BIN2 = 8; //Direction
 int dirr = 1;
 int dirl = 1;
 int M1=0;
@@ -79,6 +79,28 @@ void loop(){
     } else if(character == 'B'){
         Serial.print(buf);
         dirr=buf.toInt();
+        buf = "";
+    } 
+    else if(character == 'X'){
+        Serial.print(buf);
+        dirr=buf.toInt();
+        move(1,255,1);
+        move(0,255,1);
+        delay(2000);
+        move(1,255,0);
+        move(0,255,0);
+        delay(2000);
+        move(1,255,1);
+        move(0,255,0);
+        delay(2000);
+        move(1,255,0);
+        move(0,255,1);
+        delay(2000);
+        move(1,255,1);
+        move(0,255,1);
+        delay(2000);
+        move(1,255,0);
+        move(0,255,0);
         buf = "";
     } 
     move(1,M1,dirl);
@@ -148,13 +170,7 @@ void LCD(){
   gz = convertRawGyro(gzRaw);
 
   // display tab-separated gyro x/y/z values
-  Serial.print("g:\t");
-  Serial.print(gx);
-  Serial.print("\t");
-  Serial.print(gy);
-  Serial.print("\t");
-  Serial.print(gz);
-  Serial.println();
+
   lcd.print(String("X:") + gx +" Y:"+ gy );
   lcd.setCursor(0,1);
 

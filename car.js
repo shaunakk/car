@@ -21,7 +21,10 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
   console.log('A user connected');
   socket.on('pan', (data) => {
-
+    if (data == 3000) {
+      ardusend("X")
+      return;
+    }
     motor.servoWrite(750 + 10 * data);
 
 
